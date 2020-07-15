@@ -1,0 +1,20 @@
+﻿.footer {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
+  color: black;
+  text-align: left;
+  position: absolute;
+}
+
+body{
+  background-image: url("../favicon/background.jpg");
+  background-color: rgb(233, 233, 233);
+  position: relative;
+  min-height: 100vh;
+}
+
+main{
+  padding-bottom: 2.5rem;
+}

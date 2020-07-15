@@ -1,0 +1,129 @@
+.myImg {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .myImg:hover {opacity: 0.7;}
+  
+  /* The Modal (background) */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+  }
+  
+  /* Modal Content (Image) */
+  .mymodal-content {
+    margin: auto;
+    display: block;
+    height: 80%;
+  }
+  
+  /* Add Animation - Zoom in the Modal */
+  .modal-content, #caption {
+    animation-name: zoom;
+    animation-duration: 0.6s;
+  }
+  
+  @keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+  }
+  
+  /* The Close Button */
+  #close {
+    position: absolute;
+    top: 60px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  /* 100% Image Width on Smaller Screens */
+  @media only screen and (max-width: 700px){
+    .modal-content {
+      width: 50%;
+    }
+  }
+
+:root {
+    --avatar-size: 4rem;
+}
+
+.circle {
+    background-color: #e8b047;
+    border-radius: 50%;
+    height: var(--avatar-size);
+    text-align: center;
+    width: var(--avatar-size);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.initials {
+    font-size: calc(var(--avatar-size) / 2);
+    line-height: 1;
+    position: relative;
+    top: calc(var(--avatar-size) / 4);
+}
+
+.be-comment{
+    margin-bottom: 30px;
+}
+
+.be-comment-block {
+    width: 80%;
+    padding: 5px 0px;
+}
+
+.comments-title {
+    color: #262626;
+    margin-bottom: 40px;
+}
+
+.be-img-comment {
+    width: 60px;
+    height: 60px;
+    float: left;
+    margin-bottom: 15px;
+}
+
+.be-comment-content {
+    margin-left: 80px;
+}
+
+.be-comment-time {
+    font-size: 11px;
+    color: #b4b7c1;
+    text-align: right;
+}
+
+.be-comment-text {
+    font-size: 15px;
+    line-height: 18px;
+    color: #7a8192;
+    display: block;
+    background-color: #fcfcfc;
+    border-radius: 10px;
+    border: 1px solid #edeff2;
+    padding: 10px 15px 3px 15px;
+}

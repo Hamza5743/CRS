@@ -1,0 +1,32 @@
+blockquote{
+    text-align: center;
+}
+
+blockquote::before{
+    text-align: left;
+    font-size: 120px;
+    content: "\201F";
+    color: #878787;
+}
+
+blockquote::after{
+    text-align: right;
+    font-size: 120px;
+    content: "\201E";
+    color: #878787;
+}
+
+.Partition{
+    height:1px;
+    border:none;
+    color:#333;
+    background-color:#333;
+    margin:20px;
+}
+
+#new{
+    font-size: 18px;
+    margin: 20px;
+    width: 100px;
+    height: 40px;
+}
