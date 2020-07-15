@@ -1,0 +1,82 @@
+@{
+    Layout = "../Shared/User_Layout.cshtml";
+}
+
+@model string;
+
+<link rel = "stylesheet" href = "~/css/Add_Sugg.css">
+<link rel = "stylesheet" href = "https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+<script src="~/js/Add_Sugg.js"></script>
+
+<div class = "container">
+    @if (Model != null){
+        <div class="card" id="Confirmation">
+            <div class="card-body">
+                <h4 class="text-center">@Model</h4>
+            </div>
+            <div class="card-footer text-center">
+                @if (Model == "Suggestion Added!"){
+                    <button type="button" class="btn btn-success" onclick="HideConfirmMsg()">OK</button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-danger" onclick="HideConfirmMsg()">OK</button>
+                }
+            </div>
+        </div>
+    }
+    <div class = "card">
+        <h2 class = "card-header bg-primary text-center">Add a Suggestion</h2>
+        <article class = "card-body mx-auto">
+
+            <form enctype="multipart/form-data" onsubmit="return checkFields();" method="post" action="~/Home/Add_SuggProc">
+                <div class = "form-group input-group">
+                    <div  class = "input-group-prepend">
+                        <span class = "input-group-text"> <i class="fas fa-building"></i> </span>
+                    </div>
+                    <select class="custom-select" name="deptname" id="dept">
+                    @if (ViewBag.chosen == null){
+                        <option value="" disabled selected>Please select department</option>
+                        @foreach (var item in ViewBag.depts)
+                        {
+                            <option>@item.name</option>
+                        }
+                    }
+                    else{
+                        <option selected>@ViewBag.chosen</option>
+                        @foreach (var item in ViewBag.depts)
+                        {
+                            @if (item.name != ViewBag.chosen){
+                                <option>@item.name</option>
+                            }
+                        }
+                    }
+                    </select>
+                </div>
+                <div id="derror" class="error"></div>
+                <div class = "form-group input-group">
+                    <div  class = "input-group-prepend">
+                        <span class = "input-group-text"> <i class="fas fa-align-justify"></i> </span>
+                    </div>
+                    <textarea class = "form-control" name="content" id="content" placeholder="Enter Suggestion Details" rows="5"></textarea>
+                </div>
+                <div id="cerror" class="error"></div>
+                <div class = "form-group input-group">
+                    <div  class = "input-group-prepend">
+                        <span class = "input-group-text"> <i class="fas fa-images"></i> </span>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="customFile" name="img" multiple="" accept=".jpg,.png,.gif,.jpeg"  onchange="loadFile(event)">
+                        <label class="custom-file-label" for="customFile">Choose image</label>
+                    </div>
+                </div>
+                <div id="ierror" class="error"></div>
+                <div id="output"></div>
+                <br id="br">
+                <div class = "form-group text-center">
+                    <button type="submit" class = "btn btn-primary">Add Suggestion</button>
+                </div>
+            </form>
+        </article>
+    </div> 
+</div>

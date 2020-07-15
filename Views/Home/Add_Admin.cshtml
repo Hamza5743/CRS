@@ -1,0 +1,91 @@
+@{
+    Layout = "./../Shared/MainAdmin_Layout.cshtml";
+}
+
+<link rel = "stylesheet" href = "~/lib/bootstrap/dist/css/bootstrap.min.css">
+<link rel = "stylesheet" href = "~/css/site.css">
+<link rel = "stylesheet" href = "https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+<link rel = "icon" href = "~/favicon/favicon.ico" type = "image/x-icon"> 
+<script src="~/js/SignUp.js"></script>
+
+
+<div class = "container d-flex h-100">
+    <div class = "card bg-light row justify-content-center align-self-center" style="margin-left:auto; margin-right:auto; width:40% ">
+        <br>
+        <div style="text-align: center;">
+            @if(@ViewBag.type == "Dept")
+            {
+                <h2>Add Department</h2>
+            }
+            else
+            {
+                <h2>Change Admin</h2>
+            } 
+        </div>
+        
+        <article class = "card-body mx-auto"  style="width:80%">
+            
+            <form  onsubmit="return checkFields();" method="post" action="~/home/Add_@(ViewBag.type)_Proc">
+                @if(@ViewBag.type == "Dept")
+                {
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+                        </div>
+                        <input name="Dept_Name" id="Dept_Name" class="form-control" placeholder="Department Name" type="text" style="min-width:80%">
+                        <br><h6 id="EError"></h6>
+                    </div>
+                    <h4 class = "card-title mt-3 text-center">Admin Credentials</h4>
+                }
+                else
+                {
+                    <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    </div>
+                    <input name="Dept_Id" id="Dept_Id" class="form-control"  value="@ViewBag.id" type="text" style="min-width:80%" readonly>
+                </div>
+                    
+                }
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    </div>
+                    <input name="Fname" id="Fname" class="form-control" placeholder="First Name" type="text" style="max-width:40%">
+                    <input name="Lname" id="Lname" class="form-control" placeholder="Last Name" type="text">
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                    </div>
+                    <input name="Email" id="Email" class="form-control" placeholder="Email address" type="email" style="min-width:80%">
+                    <br><h6 id="EError"></h6>
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fas fa-address-card"></i> </span>
+                    </div>
+                    <input name="cnic" id="cnic" class="form-control" placeholder="Cnic" type="text" style="min-width:80%">
+                    <br><h6 id="CError"></h6>
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    </div>
+                    <input class="form-control" name="Password" id="Password" placeholder="Create password" type="password" style="min-width:80%">
+                    <br><h6 id="PError"></h6>
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    </div>
+                    <input class="form-control" name="RePassword" id="RePassword" placeholder="Repeat password" type="password" style="min-width:80%">
+                </div> <!-- form-group// -->                                 
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block"> Done  </button>
+                </div> <!-- form-group// -->     
+                <h6 style="color: #ff0000;">@ViewBag.Error</h6> 
+            </form>
+        </article>
+    </div> 
+</div>

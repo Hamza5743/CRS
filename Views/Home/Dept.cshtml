@@ -1,0 +1,72 @@
+@if(@ViewBag.Type == "MainAdmin")
+{
+    Layout = "./../Shared/MainAdmin_Layout.cshtml";
+}
+else
+{
+    Layout = "./../Shared/User_Layout.cshtml";
+}
+
+<link rel = "stylesheet" href = "~/css/Dept.css">
+<link rel = "stylesheet" href = "~/css/site.css">
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card text-center">
+            <div class="card-body text-center">
+                <div class="circle">
+                    <span class="initials">@(ViewBag.Dept[0].initials())</span>
+                </div>
+                <br>
+                <h1 class="card-title">@ViewBag.Dept[0].name</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6" id="sidepanel">
+        <h3 class="text-center"><b>Department Id:</b> @ViewBag.Dept[0].id</h3>
+        <br>
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <h4><b>Admin Name:</b></h4>
+                <h5>@ViewBag.Admin[0].fname @ViewBag.Admin[0].fname</h5>
+            </div>
+            <div class="col-md-6 text-center">
+                <h4><b>Admin Email:</b></h4>
+                <h5>@ViewBag.Admin[0].email</h5>
+            </div>
+        </div>
+        <br>
+        @if (ViewBag.Type == "MainAdmin"){
+        <h4 class="text-center"><b>Admin Cnic:</b></h4>
+        @if (@ViewBag.Admin[0].cnic == ""){
+            <h5 class="text-center">Not Provided</h5>
+        }
+        else{
+            <h5 class="text-center">@ViewBag.Admin[0].cnic</h5>
+        }
+        }
+        <br>
+        <div class="text-center">
+            @if (ViewBag.Type == "MainAdmin"){
+            <a href = "~/Home/Add_Admin/@ViewBag.Dept[0].id" class="btn btn-success">Change Admin</a>
+            <a href = "~/Home/DelDept/@ViewBag.Dept[0].id" class="btn btn-danger">Delete Department</a>
+            }
+            else{
+                <br>
+                <a href = "~/Home/Add_Comp/@ViewBag.Dept[0].name" class="btn btn-danger">Register Complaint</a>
+                <a href = "~/Home/Add_Sugg/@ViewBag.Dept[0].name" class="btn btn-success">Give Suggestion</a>
+            }
+        </div>
+    </div>
+</div>
+<br><br>
+<div class="row" style="font-weight:bold;">
+    <div class="col-md-6 text-center">
+        <h3>Number of Registered Complaints</h3>
+        <h3>@ViewBag.ComplaintsCount</h3>
+    </div>
+    <div class="col-md-6 text-center">
+        <h3>Number of Suggestions</h3>
+        <h3>@ViewBag.SuggestionsCount</h3>
+    </div>
+</div>

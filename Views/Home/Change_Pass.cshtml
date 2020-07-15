@@ -1,0 +1,67 @@
+@if (@ViewBag.Type == "Admin")
+{
+    Layout = "./../Shared/Admin_Layout.cshtml";
+}
+else if(@ViewBag.Type == "MainAdmin")
+{
+    Layout = "./../Shared/MainAdmin_Layout.cshtml";
+}
+else
+{
+    Layout = "./../Shared/User_Layout.cshtml";
+}
+
+@model string
+
+<link rel = "stylesheet" href = "https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+<link rel = "stylesheet" href = "~/css/Change_Pass.css">
+<script src="~/js/Change_Pass.js"></script>
+
+@if (Model != null){
+<div id="Confirmation">
+    <div class="card">
+        <div class="card-header bg-secondary"><h4>Confirmation</h4></div>
+        <div class="card-body text-center">
+            <h4>@Model</h4>
+        </div>
+        <div class="card-footer text-center">
+            @if (Model == "Password Updated!"){
+            <button type="button" class="btn btn-success" onclick="HideConfirmMsg()">OK</button>
+            }
+            else{
+                <button type="button" class="btn btn-danger" onclick="HideConfirmMsg()">OK</button>
+            }
+        </div>
+    </div>
+</div>
+}
+
+<div class = "container d-flex h-100" style="padding-top: 5%;">
+    <div class = "card bg-light row justify-content-center align-self-center" style="margin-left:auto; margin-right:auto; width:40%">
+        <div style="text-align: center;">
+            <img src="~/favicon/android-icon-144x144.png" class="mr-3 rounded-circle" alt="CRS" style="margin-top:5%;">
+        </div>
+            
+        <article class = "card-body mx-auto"  style="width:80%">
+            <h4 class = "card-title mt-3 text-center"></h4>
+            <form  onsubmit="return checkFields();" method="post" action="~/Home/Change_Pass">
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    </div>
+                    <input class="form-control" name="pass" id="Password" placeholder="Enter password" type="password" style="min-width:80%">
+                    <br><h6 id="PError" style="color: red"></h6>
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    </div>
+                    <input class="form-control" name="RePassword" id="RePassword" placeholder="Re-Enter password" type="password" style="min-width:80%">
+                </div> <!-- form-group// -->                                 
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Change Password</button>
+                </div> <!-- form-group// -->
+            </form>
+        </article>
+    </div> 
+</div> 

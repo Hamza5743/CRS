@@ -1,0 +1,55 @@
+@if (@ViewBag.Type == "Admin")
+{
+    Layout = "./../Shared/Admin_Layout.cshtml";
+}
+else if(@ViewBag.Type == "MainAdmin")
+{
+    Layout = "./../Shared/MainAdmin_Layout.cshtml";
+}
+
+@functions{
+    public string GetAlert(string priority){
+        if (priority == "High"){
+            return "table-danger";
+        }
+        else if (priority == "Medium"){
+            return "table-warning";
+        }
+        else if (priority == "Low"){
+            return "table-active";
+        }
+        else {
+            return "table-success";
+        }
+    }
+}
+
+<link rel="stylesheet" href="~/css/Disp_Users.css">
+<script src="~/js/Disp_Users.js"></script>
+
+<div class="container text-center">
+    <br>
+    <h1>Complaint Log</h1>
+    <br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Complaint Id</th>
+                <th>Filer</th>
+                <th>Department</th>
+                <th>Deadline</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(int i = 0; i < @ViewBag.Count; ++i)
+            {
+                <tr class="@GetAlert(@ViewBag.Complaints[i].priority)" onclick="window.location.href='/Home/Individual_Complaint/@ViewBag.Complaints[i].id';">
+                    <td>@ViewBag.Complaints[i].id</td>
+                    <td>@ViewBag.feedback[i].filer</td>
+                    <td>@(dept.GetWhere("id = " + ViewBag.feedback[i].deptId)[0].name)</td>
+                    <td>@ViewBag.Complaints[i].deadline</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

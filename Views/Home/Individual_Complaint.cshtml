@@ -1,0 +1,148 @@
+@if (@ViewBag.Type == "Admin")
+{
+    Layout = "./../Shared/Admin_Layout.cshtml";
+}
+else if(@ViewBag.Type == "MainAdmin")
+{
+    Layout = "./../Shared/MainAdmin_Layout.cshtml";
+}
+else
+{
+    Layout = "./../Shared/User_Layout.cshtml";
+}
+
+@functions{
+    public string GetAlert(string priority){
+        if (priority == "High"){
+            return "alert alert-danger";
+        }
+        else if (priority == "Medium"){
+            return "alert alert-warning";
+        }
+        else if (priority == "Low"){
+            return "alert alert-secondary";
+        }
+        else {
+            return "alert alert-success";
+        }
+    }
+}
+
+<link rel = "stylesheet" href = "~/css/Individual_Complaint.css">
+<link rel = "stylesheet" href = "https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+<script src="~/js/Individual_Complaint.js"></script>
+
+<div class="container">
+    <h1 style="text-align:center; padding: 15px;">Complaint</h1>
+    <div class="box">
+        <div class="card text-center" style="width: inherit;">
+            <div class="card-body text-center">
+                <div>
+                    <div class="@GetAlert(ViewBag.Complaint[0].priority)" role="alert">
+                        <b>Complaint Id : </b>
+                        <b>@ViewBag.Complaint[0].id</b>
+                    </div>
+                </div>  
+                <div style="text-align: left;">
+                    <div class ="form-group input-group">
+                        <b>Filed By : </b>&nbsp;
+                        <b>@ViewBag.feedback[0].filer</b>
+                    </div>
+                    <div class ="form-group input-group">
+                        <b>Content : </b>&nbsp;<p>@ViewBag.feedback[0].content</p>
+                    </div>
+                    <div class ="form-group input-group">
+                    <b>Priority : </b>&nbsp;<p>@ViewBag.Complaint[0].priority</p>
+                    </div>
+                </div>
+                    <b>Deadline : </b>&nbsp;
+                    <b style="color: red;">@ViewBag.Complaint[0].deadline</b>
+            </div>
+        </div>           
+    </div>
+    <h4 style="color: red; padding: 5px; text-align: center;">@ViewBag.Error</h4>
+    <div>
+        <h5>Related Images(if any)</h5>
+        @foreach(var item in @ViewBag.img)
+        {
+            <img class="myImg" id = "@item.id" src="data:image/@(item.type.Substring(1));base64,@(item.imgdata)" style="height: 200px;" onclick='display("@item.id")'>
+        }
+        <div id="myModal" class="modal">
+            <span id="close" onclick='Close()'>&times;</span>
+            <img class="mymodal-content" id="img01">
+        </div>
+    </div> 
+    <br>
+    @if (@ViewBag.Type == "Admin")
+    {    
+        <div style="text-align: center">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Set Deadline</h3><br>
+                    <form method="get" action="~/Home/deadline">
+                        <div class="form-group input-group">
+                            <input class="form-control" name="deadline" type="date">&nbsp;&nbsp;
+                            <input name="cid" type="text" value="@ViewBag.Complaint[0].id" style="display: none;">
+                            <button type="submit" class="btn btn-primary">Set</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <h3>Set Priority</h3><br>
+                    <form method="get" action="~/Home/Priority">
+                        <div class="form-group input-group">
+                            <select name="prior" class="custom-select">
+                                <option selected="" style="margin: auto;"> @ViewBag.Complaint[0].priority </option>
+                                <option>High</option>
+                                <option>Medium</option>
+                                <option>Low</option>
+                            </select>&nbsp;&nbsp;
+                            <input name="cid" type="text" value="@ViewBag.Complaint[0].id" style="display: none;">
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr>
+            <button type="button" class="btn btn-success" onclick='window.location.href="/Home/Res/@ViewBag.Complaint[0].id"'>Resolve</button>
+            <button type="button" class="btn btn-danger" onclick='window.location.href="/Home/Rej/@ViewBag.Complaint[0].id"'>Reject</button>
+            <hr>
+        </div>
+    }
+    <div class="be-comment-block">
+        <h2 class="comments-title">Comments (@ViewBag.comments.Count)</h2>
+        @foreach (var item in ViewBag.comments)
+        {
+            <div class="be-comment">
+                <div class="be-img-comment">	
+                    <div class="circle" style="background-color: @ViewBag.color[item.CommentorEmail]">
+                        <span class="initials">@(ViewBag.commentors[item.CommentorEmail].fname[0])@(ViewBag.commentors[item.CommentorEmail].lname[0])</span>
+                    </div>
+                </div>
+                <div class="be-comment-content">
+                    <h4>@ViewBag.commentors[item.CommentorEmail].fname @ViewBag.commentors[item.CommentorEmail].lname</h4>
+                    <div class="be-comment-text">
+                    @item.content
+                    <div class="be-comment-time">
+                        <i class="fas fa-clock"></i>@item.timestamp
+                    </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (ViewBag.Type != "MainAdmin"){
+        <form method="post" action="~/Home/Add_Comment">
+            <div class = "form-group input-group">
+                <div class = "input-group-prepend">
+                    <span class = "input-group-text"> <i class="fas fa-align-justify"></i> </span>
+                </div>
+                <input type="text" name="complaintid" value="@ViewBag.Complaint[0].id" style="display: none;">
+                <textarea class = "form-control" name="content" id="content" placeholder="Enter Commment" rows="3" required></textarea>
+            </div>
+            <div class = "form-group text-center">
+                <button type="submit" class = "btn btn-primary">Add Comment</button>
+            </div>
+        </form>
+        }
+    </div>
+</div>

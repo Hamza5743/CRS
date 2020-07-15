@@ -1,0 +1,38 @@
+@if (@ViewBag.Type == "Admin")
+{
+    Layout = "./../Shared/Admin_Layout.cshtml";
+}
+else if(@ViewBag.Type == "MainAdmin")
+{
+    Layout = "./../Shared/MainAdmin_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/Disp_Users.css">
+<script src="~/js/Disp_Users.js"></script>
+
+<div class="container text-center">
+    <br>
+    <h1>Suggestion Log</h1>
+    <br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Suggestion Id</th>
+                <th>Filer</th>
+                <th>Department</th>
+                <th>Content</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(int i = 0; i < @ViewBag.Count; ++i)
+            {
+                <tr class="table-info" onclick="window.location.href='/Home/Individual_Suggestion/@ViewBag.feedback[i].id';">
+                    <td>@ViewBag.feedback[i].id</td>
+                    <td>@ViewBag.feedback[i].filer</td>
+                    <td>@(dept.GetWhere("id = " + ViewBag.feedback[i].deptId)[0].name)</td>
+                    <td>@ViewBag.feedback[i].content</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

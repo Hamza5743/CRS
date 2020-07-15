@@ -1,0 +1,38 @@
+@{
+    Layout = "./../Shared/MainAdmin_Layout.cshtml";
+}
+
+<link rel = "stylesheet" href = "~/css/User_Homepage.css">
+<link rel = "stylesheet" href = "~/css/MainAdmin_Homepage.css">
+
+<div class="jumbotron text-center w-100" id="jumbo">
+    <b><h1 class="display-4">Hello, @ViewBag.Fname @ViewBag.Lname!</h1></b>
+    <hr>
+    <p class="lead">Welcome to Complaint Registration System, This is your DashBoard.</p>
+    <p class="lead">You can manage everything from here.</p>
+</div>
+<blockquote>
+    <h1>With Great Power Comes Great Responsibility.</h1>
+</blockquote>
+<br><hr class="Partition"><br>
+<h1 class="text-center w-100">Departments</h1>
+<br>
+<div class="row">
+@foreach (var item in ViewBag.depts)
+{
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body text-center">
+                <div class="circle">
+                    <span class="initials">@(item.initials())</span>
+                </div>
+                <h5 class="card-title">@item.name</h5>
+                <a href="~/Home/Dept/@item.id" class="btn btn-primary stretched-link">View Detail</a>
+            </div>
+        </div>
+    </div>
+}
+</div>
+<div class="text-center w-100">
+    <a href="~/Home/Add_Dept" class="btn btn-primary" id="new">Add New</a>
+</div>
